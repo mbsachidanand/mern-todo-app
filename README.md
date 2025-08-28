@@ -4,14 +4,20 @@ A full-stack todo application built with the MERN stack (MongoDB, Express.js, Re
 
 ## Features
 
-- ✅ Add new todos
+- ✅ Add new todos with validation
 - ✅ Toggle todo completion status
-- ✅ Delete todos
-- ✅ Real-time updates
-- ✅ Persistent data storage
-- ✅ Clean, responsive UI
-- ✅ Modern React with hooks
-- ✅ RESTful API
+- ✅ Edit todo titles inline
+- ✅ Delete todos with confirmation
+- ✅ Real-time updates and notifications
+- ✅ Persistent data storage with MongoDB
+- ✅ Modern, responsive UI with animations
+- ✅ Error handling and user feedback
+- ✅ Loading states and empty states
+- ✅ Character count for long todos
+- ✅ Time ago display for todos
+- ✅ RESTful API with proper validation
+- ✅ Health check endpoint
+- ✅ Optimistic updates for better UX
 
 ## Tech Stack
 
@@ -102,10 +108,35 @@ This will start both:
 
 ## API Endpoints
 
-- `GET /api/todos` - Get all todos
-- `POST /api/todos` - Create a new todo
-- `PATCH /api/todos/:id` - Update a todo
+- `GET /api/todos` - Get all todos (sorted by creation date)
+- `POST /api/todos` - Create a new todo (with validation)
+- `PATCH /api/todos/:id` - Update a todo (title, done status, priority)
 - `DELETE /api/todos/:id` - Delete a todo
+- `GET /api/health` - Health check endpoint
+
+### Request/Response Examples
+
+**Create a todo:**
+```bash
+POST /api/todos
+Content-Type: application/json
+
+{
+  "title": "Buy groceries",
+  "priority": "high"
+}
+```
+
+**Update a todo:**
+```bash
+PATCH /api/todos/:id
+Content-Type: application/json
+
+{
+  "title": "Buy groceries and milk",
+  "done": true
+}
+```
 
 ## Development
 

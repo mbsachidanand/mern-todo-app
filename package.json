@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "npm --prefix server run dev",
-    "dev:client": "npm --prefix client run dev"
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server run start",
+    "lint": "npm --prefix client run lint && npm --prefix server run lint",
+    "clean": "rm -rf node_modules client/node_modules server/node_modules"
   },
   "keywords": [],
   "author": "",
