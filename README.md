@@ -23,11 +23,13 @@ A full-stack todo application built with the MERN stack (MongoDB, Express.js, Re
 
 ### Frontend
 - **React 19** - Modern React with hooks
+- **TypeScript** - Type-safe development
 - **Vite** - Fast build tool and dev server
 - **CSS** - Inline styles for simplicity
 
 ### Backend
 - **Node.js** - JavaScript runtime
+- **TypeScript** - Type-safe development
 - **Express.js** - Web framework
 - **Mongoose** - MongoDB ODM
 - **CORS** - Cross-origin resource sharing
@@ -36,6 +38,7 @@ A full-stack todo application built with the MERN stack (MongoDB, Express.js, Re
 - **MongoDB** - NoSQL database
 
 ### Development
+- **TypeScript** - Type checking and IntelliSense
 - **Nodemon** - Auto-restart for development
 - **Concurrently** - Run multiple commands
 - **ESLint** - Code quality

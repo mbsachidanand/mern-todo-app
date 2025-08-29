@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useTodos } from './hooks/useTodos.js';
-import TodoItem from './components/TodoItem.jsx';
+import { useTodos } from './hooks/useTodos';
+import TodoItem from './components/TodoItem';
+import { Notification } from './types';
 
 export default function App() {
-  const [title, setTitle] = useState('');
-  const [inputFocused, setInputFocused] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [notification, setNotification] = useState(null);
+  const [title, setTitle] = useState<string>('');
+  const [inputFocused, setInputFocused] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [notification, setNotification] = useState<Notification | null>(null);
 
   const {
     todos,
@@ -31,7 +32,7 @@ export default function App() {
     }
   }, [notification]);
 
-  const handleAddTodo = async (e) => {
+  const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!title.trim() || submitting) return;
     
@@ -41,13 +42,14 @@ export default function App() {
       setTitle('');
       setNotification({ type: 'success', message: 'Todo added successfully!' });
     } catch (error) {
-      setNotification({ type: 'error', message: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setNotification({ type: 'error', message: errorMessage });
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleToggleTodo = async (id, done) => {
+  const handleToggleTodo = async (id: string, done: boolean): Promise<void> => {
     try {
       await toggleTodo(id, done);
       setNotification({
@@ -55,25 +57,28 @@ export default function App() {
         message: done ? 'Todo completed!' : 'Todo marked as incomplete!'
       });
     } catch (error) {
-      setNotification({ type: 'error', message: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setNotification({ type: 'error', message: errorMessage });
     }
   };
 
-  const handleDeleteTodo = async (id) => {
+  const handleDeleteTodo = async (id: string): Promise<void> => {
     try {
       await deleteTodo(id);
       setNotification({ type: 'success', message: 'Todo deleted!' });
     } catch (error) {
-      setNotification({ type: 'error', message: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setNotification({ type: 'error', message: errorMessage });
     }
   };
 
-  const handleUpdateTodo = async (id, title) => {
+  const handleUpdateTodo = async (id: string, title: string): Promise<void> => {
     try {
       await updateTodoTitle(id, title);
       setNotification({ type: 'success', message: 'Todo updated!' });
     } catch (error) {
-      setNotification({ type: 'error', message: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      setNotification({ type: 'error', message: errorMessage });
     }
   };
 
@@ -138,7 +143,7 @@ export default function App() {
           }}>
             <input
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               onFocus={() => setInputFocused(true)}
               onBlur={() => setInputFocused(false)}
               placeholder="What needs to be done?"
@@ -194,7 +199,7 @@ export default function App() {
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     minHeight: '100vh',
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',

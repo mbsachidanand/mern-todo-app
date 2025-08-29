@@ -1,14 +1,22 @@
 import { useState } from 'react';
+import { Todo } from '../types';
 
-export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(todo.title);
+interface TodoItemProps {
+  todo: Todo;
+  onToggle: (id: string, done: boolean) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
+  onUpdate: (id: string, title: string) => Promise<void>;
+}
 
-  const handleEdit = () => {
+export default function TodoItem({ todo, onToggle, onDelete, onUpdate }: TodoItemProps) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editTitle, setEditTitle] = useState<string>(todo.title);
+
+  const handleEdit = (): void => {
     setIsEditing(true);
   };
 
-  const handleSave = async () => {
+  const handleSave = async (): Promise<void> => {
     if (editTitle.trim() && editTitle !== todo.title) {
       try {
         await onUpdate(todo._id, editTitle.trim());
@@ -20,12 +28,12 @@ export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
     setIsEditing(false);
   };
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     setEditTitle(todo.title);
     setIsEditing(false);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       handleSave();
     } else if (e.key === 'Escape') {
@@ -106,7 +114,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   todoItem: {
     display: 'flex',
     alignItems: 'center',
@@ -136,7 +144,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'all 0.3s ease',
-    flexShrink: '0'
+    flexShrink: 0
   },
   checkboxChecked: {
     background: '#667eea',
@@ -164,7 +172,7 @@ const styles = {
     fontSize: '0.8rem',
     color: '#999',
     fontStyle: 'italic',
-    flexShrink: '0'
+    flexShrink: 0
   },
   actions: {
     display: 'flex',
